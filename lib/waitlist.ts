@@ -28,21 +28,33 @@ function confirmationHtml(entry: WaitlistEntry): string {
   const lead = seller
     ? "You're on the founding-seller list. The first cohort gets reduced fees for life — we'll reach out before launch to get your catalog ready."
     : "You're on the early-access list. We'll let you know the moment the first live shows open for bidding.";
+  // Gradient values declare a solid fallback FIRST, then the linear-gradient —
+  // clients that strip gradients (Outlook, some Gmail) keep the on-brand solid.
+  const grad = "#8B2FC9;background:linear-gradient(135deg,#8B2FC9 0%,#FF3B5C 100%)";
+  const gradH = "#8B2FC9;background:linear-gradient(90deg,#8B2FC9 0%,#FF3B5C 100%)";
   return `<!doctype html><html><body style="margin:0;background:#0D0D0D;font-family:Georgia,serif;">
-  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#0D0D0D;padding:40px 0;">
-    <tr><td align="center">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#0D0D0D;">
+    <tr><td align="center" style="padding:0;">
       <table role="presentation" width="480" cellpadding="0" cellspacing="0" style="max-width:480px;width:100%;">
-        <tr><td style="padding:0 24px 24px;">
+        <tr><td style="height:4px;line-height:4px;font-size:0;background:${gradH};">&nbsp;</td></tr>
+        <tr><td style="padding:38px 24px 22px;background:#0D0D0D;background:linear-gradient(180deg,rgba(139,47,201,0.22) 0%,rgba(255,59,92,0.06) 45%,rgba(13,13,13,0) 100%);">
           <div style="font-size:22px;letter-spacing:6px;color:#D4AF37;font-weight:bold;">REV&Eacute;LAT</div>
         </td></tr>
         <tr><td style="padding:0 24px;">
-          <h1 style="margin:0 0 16px;color:#ffffff;font-size:32px;line-height:1.1;">You're in.</h1>
+          <h1 style="margin:0 0 16px;color:#ffffff;font-size:34px;line-height:1.05;">You're in.</h1>
           <p style="margin:0 0 20px;color:#CCCCCC;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.6;">${lead}</p>
-          <p style="margin:0 0 28px;color:#999999;font-family:Helvetica,Arial,sans-serif;font-size:14px;line-height:1.6;">The fashion show where everything is for sale. Sellers model their pieces live; the moment an item goes on, the auction opens. You bid while it's on screen.</p>
-          <a href="https://revelat.live" style="color:#D4AF37;text-decoration:none;font-family:Helvetica,Arial,sans-serif;font-size:15px;font-weight:bold;">Visit revelat.live &rarr;</a>
+          <p style="margin:0 0 30px;color:#999999;font-family:Helvetica,Arial,sans-serif;font-size:14px;line-height:1.6;">The fashion show where everything is for sale. Sellers model their pieces live; the moment an item goes on, the auction opens. You bid while it's on screen.</p>
+          <table role="presentation" cellpadding="0" cellspacing="0"><tr>
+            <td style="border-radius:999px;background:${grad};">
+              <a href="https://revelat.live" style="display:inline-block;padding:13px 30px;color:#ffffff;text-decoration:none;font-family:Helvetica,Arial,sans-serif;font-size:14px;font-weight:bold;">Visit revelat.live &rarr;</a>
+            </td>
+          </tr></table>
         </td></tr>
-        <tr><td style="padding:36px 24px 0;border-top:1px solid #1A1A1A;">
-          <p style="margin:24px 0 0;color:#666666;font-family:Helvetica,Arial,sans-serif;font-size:12px;line-height:1.6;">You're receiving this because you joined the REV&Eacute;LAT waitlist. Reply to this email to reach a human.</p>
+        <tr><td style="padding:38px 24px 0;">
+          <div style="height:2px;line-height:2px;font-size:0;background:${gradH};">&nbsp;</div>
+        </td></tr>
+        <tr><td style="padding:20px 24px 42px;">
+          <p style="margin:0;color:#666666;font-family:Helvetica,Arial,sans-serif;font-size:12px;line-height:1.6;">You're receiving this because you joined the REV&Eacute;LAT waitlist. Reply to this email to reach a human.</p>
         </td></tr>
       </table>
     </td></tr>
