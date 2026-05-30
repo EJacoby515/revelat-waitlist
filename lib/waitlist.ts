@@ -73,7 +73,31 @@ export async function sendConfirmation(entry: WaitlistEntry): Promise<void> {
 }
 
 export async function saveEntry(entry: WaitlistEntry): Promise<SinkResult> {
-  // 1) Resend Audiences (https://resend.com/docs/api-reference/contacts)
+  // 1) Supabase table (shared with the main app). Writes via the service-role
+  // key server-side; RLS blocks everyone else. Duplicate email is a no-op, not
+  // an error — the signer is "on the list" either way.
+  if (process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY) {
+    const res = await fetch(`${process.env.SUPABASE_URL}/rest/v1/waitlist`, {
+      method: "POST",
+      headers: {
+        apikey: process.env.SUPABASE_SERVICE_ROLE_KEY,
+        Authorization: `Bearer ${process.env.SUPABASE_SERVICE_ROLE_KEY}`,
+        "Content-Type": "application/json",
+        // ignore-duplicates: rely on the UNIQUE(email) constraint; return=minimal
+        // skips the row read-back so the service role needs no SELECT.
+        Prefer: "resolution=ignore-duplicates,return=minimal",
+      },
+      body: JSON.stringify({
+        email: entry.email,
+        role: entry.role ?? null,
+        source: entry.source ?? null,
+      }),
+    });
+    if (res.ok || res.status === 409) return { ok: true, persisted: true };
+    return { ok: false, error: `Supabase error (${res.status})` };
+  }
+
+  // 2) Resend Audiences (https://resend.com/docs/api-reference/contacts)
   if (process.env.RESEND_API_KEY && process.env.RESEND_AUDIENCE_ID) {
     const res = await fetch(
       `https://api.resend.com/audiences/${process.env.RESEND_AUDIENCE_ID}/contacts`,
@@ -94,7 +118,7 @@ export async function saveEntry(entry: WaitlistEntry): Promise<SinkResult> {
     return { ok: false, error: `Resend error (${res.status})` };
   }
 
-  // 2) Generic webhook (Zapier / n8n / your own endpoint)
+  // 3) Generic webhook (Zapier / n8n / your own endpoint)
   if (process.env.WAITLIST_WEBHOOK_URL) {
     const res = await fetch(process.env.WAITLIST_WEBHOOK_URL, {
       method: "POST",
@@ -105,7 +129,7 @@ export async function saveEntry(entry: WaitlistEntry): Promise<SinkResult> {
     return { ok: false, error: `Webhook error (${res.status})` };
   }
 
-  // 3) Dev fallback — no provider configured. Accept the signup so the UX works
+  // 4) Dev fallback — no provider configured. Accept the signup so the UX works
   // end-to-end locally, but make clear it is NOT persisted anywhere.
   console.warn(
     `[waitlist] no sink configured — entry accepted but NOT persisted: ${entry.email} (${entry.role ?? "any"})`,
