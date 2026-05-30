@@ -23,3 +23,6 @@ yarn-debug.log*
 yarn-error.log*
 .vercel
 *.tsbuildinfo
+
+# Amplify build-time generated
+.env.production

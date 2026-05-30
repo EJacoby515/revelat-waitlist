@@ -1,0 +1,22 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - npm ci --cache .npm --prefer-offline
+    build:
+      commands:
+        # Amplify injects console env vars into the BUILD shell but not the
+        # Next.js SSR runtime. Bake the server-side vars into .env.production so
+        # Next loads them at runtime (process.env in route handlers). NEXT_PUBLIC_*
+        # is inlined by `next build` either way.
+        - env | grep -E '^(SUPABASE_|RESEND_|NEXT_PUBLIC_)' >> .env.production || true
+        - npm run build
+  artifacts:
+    baseDirectory: .next
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - .next/cache/**/*
+      - .npm/**/*
