@@ -39,7 +39,7 @@ function confirmationHtml(entry: WaitlistEntry): string {
           <h1 style="margin:0 0 16px;color:#ffffff;font-size:32px;line-height:1.1;">You're in.</h1>
           <p style="margin:0 0 20px;color:#CCCCCC;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.6;">${lead}</p>
           <p style="margin:0 0 28px;color:#999999;font-family:Helvetica,Arial,sans-serif;font-size:14px;line-height:1.6;">The fashion show where everything is for sale. Sellers model their pieces live; the moment an item goes on, the auction opens. You bid while it's on screen.</p>
-          <a href="https://revelat.live" style="display:inline-block;background:#D4AF37;color:#0D0D0D;text-decoration:none;font-family:Helvetica,Arial,sans-serif;font-size:14px;font-weight:bold;padding:12px 24px;border-radius:999px;">Visit revelat.live</a>
+          <a href="https://revelat.live" style="color:#D4AF37;text-decoration:none;font-family:Helvetica,Arial,sans-serif;font-size:15px;font-weight:bold;">Visit revelat.live &rarr;</a>
         </td></tr>
         <tr><td style="padding:36px 24px 0;border-top:1px solid #1A1A1A;">
           <p style="margin:24px 0 0;color:#666666;font-family:Helvetica,Arial,sans-serif;font-size:12px;line-height:1.6;">You're receiving this because you joined the REV&Eacute;LAT waitlist. Reply to this email to reach a human.</p>
@@ -48,6 +48,27 @@ function confirmationHtml(entry: WaitlistEntry): string {
     </td></tr>
   </table>
 </body></html>`;
+}
+
+// Plain-text alternative. Sending multipart (text + html) is a strong signal to
+// Gmail that this is a real 1:1 message, not an HTML-only marketing blast —
+// helps land in Primary rather than Promotions.
+function confirmationText(entry: WaitlistEntry): string {
+  const lead =
+    entry.role === "seller"
+      ? "You're on the founding-seller list. The first cohort gets reduced fees for life — we'll reach out before launch to get your catalog ready."
+      : "You're on the early-access list. We'll let you know the moment the first live shows open for bidding.";
+  return [
+    "You're in.",
+    "",
+    lead,
+    "",
+    "REVÉLAT is the live fashion show where everything is for sale. Sellers model their pieces live; the moment an item goes on, the auction opens, and you bid while it's on screen.",
+    "",
+    "More soon — https://revelat.live",
+    "",
+    "You're receiving this because you joined the REVÉLAT waitlist. Just reply to this email to reach a human.",
+  ].join("\n");
 }
 
 export async function sendConfirmation(entry: WaitlistEntry): Promise<void> {
@@ -63,7 +84,9 @@ export async function sendConfirmation(entry: WaitlistEntry): Promise<void> {
         from: FROM,
         to: entry.email,
         reply_to: REPLY_TO,
-        subject: "You're on the REVÉLAT list.",
+        subject: "You're in — welcome to REVÉLAT",
+        // Multipart: text first, then html. The plain-text part is the Primary-tab signal.
+        text: confirmationText(entry),
         html: confirmationHtml(entry),
       }),
     });
