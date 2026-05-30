@@ -25,9 +25,9 @@ const REPLY_TO = process.env.RESEND_REPLY_TO || "hello@revelat.live";
 
 function confirmationHtml(entry: WaitlistEntry): string {
   const seller = entry.role === "seller";
-  const lead = seller
-    ? "You're on the founding-seller list. The first cohort gets reduced fees for life — we'll reach out before launch to get your catalog ready."
-    : "You're on the early-access list. We'll let you know the moment the first live shows open for bidding.";
+  const role = seller
+    ? "As a founding seller, you're first in line — the opening cohort gets reduced fees for life, and we'll reach out before launch to get your catalog ready."
+    : "You're on the early-access list, which means you'll be among the first in the room when the live shows open for bidding.";
   // Gradient values declare a solid fallback FIRST, then the linear-gradient —
   // clients that strip gradients (Outlook, some Gmail) keep the on-brand solid.
   const grad = "#8B2FC9;background:linear-gradient(135deg,#8B2FC9 0%,#FF3B5C 100%)";
@@ -42,8 +42,9 @@ function confirmationHtml(entry: WaitlistEntry): string {
         </td></tr>
         <tr><td style="padding:0 24px;">
           <h1 style="margin:0 0 16px;color:#ffffff;font-size:34px;line-height:1.05;">You're in.</h1>
-          <p style="margin:0 0 20px;color:#CCCCCC;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.6;">${lead}</p>
-          <p style="margin:0 0 30px;color:#999999;font-family:Helvetica,Arial,sans-serif;font-size:14px;line-height:1.6;">The fashion show where everything is for sale. Sellers model their pieces live; the moment an item goes on, the auction opens. You bid while it's on screen.</p>
+          <p style="margin:0 0 18px;color:#CCCCCC;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.6;">We got your request to join the REV&Eacute;LAT waitlist — and honestly, we're just as excited as you are. Consider your spot saved.</p>
+          <p style="margin:0 0 18px;color:#CCCCCC;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.6;">${role}</p>
+          <p style="margin:0 0 30px;color:#999999;font-family:Helvetica,Arial,sans-serif;font-size:14px;line-height:1.6;">We'll email you the moment there's something worth knowing — launch dates, early access, and founding perks. No noise, just the good stuff.</p>
           <table role="presentation" cellpadding="0" cellspacing="0"><tr>
             <td style="border-radius:999px;background:${grad};">
               <a href="https://revelat.live" style="display:inline-block;padding:13px 30px;color:#ffffff;text-decoration:none;font-family:Helvetica,Arial,sans-serif;font-size:14px;font-weight:bold;">Visit revelat.live &rarr;</a>
@@ -66,16 +67,18 @@ function confirmationHtml(entry: WaitlistEntry): string {
 // Gmail that this is a real 1:1 message, not an HTML-only marketing blast —
 // helps land in Primary rather than Promotions.
 function confirmationText(entry: WaitlistEntry): string {
-  const lead =
+  const role =
     entry.role === "seller"
-      ? "You're on the founding-seller list. The first cohort gets reduced fees for life — we'll reach out before launch to get your catalog ready."
-      : "You're on the early-access list. We'll let you know the moment the first live shows open for bidding.";
+      ? "As a founding seller, you're first in line — the opening cohort gets reduced fees for life, and we'll reach out before launch to get your catalog ready."
+      : "You're on the early-access list, which means you'll be among the first in the room when the live shows open for bidding.";
   return [
     "You're in.",
     "",
-    lead,
+    "We got your request to join the REVÉLAT waitlist — and honestly, we're just as excited as you are. Consider your spot saved.",
     "",
-    "REVÉLAT is the live fashion show where everything is for sale. Sellers model their pieces live; the moment an item goes on, the auction opens, and you bid while it's on screen.",
+    role,
+    "",
+    "We'll email you the moment there's something worth knowing — launch dates, early access, and founding perks. No noise, just the good stuff.",
     "",
     "More soon — https://revelat.live",
     "",
