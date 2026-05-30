@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #0d0d0d;
+  color: #ffffff;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Couture grain + radial vignette behind the hero. */
+.bg-aurora {
+  background:
+    radial-gradient(60% 50% at 50% 0%, rgba(212, 175, 55, 0.10) 0%, transparent 60%),
+    radial-gradient(45% 40% at 85% 20%, rgba(139, 47, 201, 0.12) 0%, transparent 55%),
+    radial-gradient(50% 45% at 12% 30%, rgba(255, 59, 92, 0.10) 0%, transparent 55%),
+    #0d0d0d;
+}
+
+.gold-text {
+  background: linear-gradient(92deg, #d4af37 0%, #f5c842 50%, #d4af37 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hairline {
+  border-image: linear-gradient(
+      90deg,
+      transparent,
+      rgba(212, 175, 55, 0.4),
+      transparent
+    )
+    1;
+}

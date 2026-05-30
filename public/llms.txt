@@ -1,0 +1,29 @@
+# REVÉLAT
+
+> REVÉLAT is a live-auction mobile app for fashion. Sellers model their clothing and accessories on camera; on-device vision AI recognizes each item against the seller's catalog and automatically opens bidding the moment it's worn — and closes it when they move on. Buyers watch items modeled live and bid in real time. Think a live runway show where everything on the model is for sale, with no auctioneer required.
+
+This site is the pre-launch waitlist. The product is a cross-platform app — iOS, Android, and web (currently onboarding founding sellers).
+
+## Core concept
+- The seller performs; the auction runs itself. Vision recognition opens an auction when an item is worn and closes it when it's removed.
+- Bidding is real-time and race-free, synchronized across all viewers, with anti-snipe protection.
+- The full transaction (watch → bid → win → pay → ship) happens inside the live stream.
+
+## Who it's for
+- Sellers: resellers, vintage curators, and boutique owners who want to sell live without manually tagging products or running an auction by hand.
+- Buyers: people who want the energy of a live drop with the fairness of a real auction, and who want to see garments worn and in motion before bidding.
+
+## Key pages
+- [Home / Waitlist](/): product explanation, how it works, and email signup for early access.
+
+## How it works
+1. A seller wears an item live on camera.
+2. Vision AI matches it to their uploaded catalog and opens the auction automatically.
+3. Viewers bid in real time while the item is on screen.
+4. When the seller moves on, the auction closes and the next item begins.
+
+## Status
+- Pre-launch. Onboarding founding sellers (reduced fees for life for the first cohort), opening to buyers shortly after.
+
+## Contact
+- Join the waitlist on the home page for early access and launch news.
