@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { isValidEmail, saveEntry } from "@/lib/waitlist";
+import { isValidEmail, saveEntry, sendConfirmation, type WaitlistEntry } from "@/lib/waitlist";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -25,17 +25,20 @@ export async function POST(req: Request) {
     role === "seller" || role === "buyer" ? role : undefined;
 
   try {
-    const result = await saveEntry({
+    const entry: WaitlistEntry = {
       email: email.trim().toLowerCase(),
       role: normalizedRole,
       source: "waitlist-landing",
-    });
+    };
+    const result = await saveEntry(entry);
     if (!result.ok) {
       return NextResponse.json(
         { ok: false, error: "Couldn't save right now. Try again shortly." },
         { status: 502 },
       );
     }
+    // Fire the welcome email but don't let it gate the response.
+    await sendConfirmation(entry);
     return NextResponse.json({ ok: true, persisted: result.persisted });
   } catch {
     return NextResponse.json(

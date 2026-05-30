@@ -16,6 +16,62 @@ export function isValidEmail(email: unknown): email is string {
 
 export type SinkResult = { ok: true; persisted: boolean } | { ok: false; error: string };
 
+// Branded "you're in" email. Best-effort: any failure is swallowed so a flaky
+// mail send never blocks a signup. Sends only when RESEND_API_KEY is present
+// (and the revelat.live domain is verified in Resend). From/reply-to default to
+// hello@revelat.live, which forwards to the team inbox via ImprovMX.
+const FROM = process.env.RESEND_FROM || "REVÉLAT <hello@revelat.live>";
+const REPLY_TO = process.env.RESEND_REPLY_TO || "hello@revelat.live";
+
+function confirmationHtml(entry: WaitlistEntry): string {
+  const seller = entry.role === "seller";
+  const lead = seller
+    ? "You're on the founding-seller list. The first cohort gets reduced fees for life — we'll reach out before launch to get your catalog ready."
+    : "You're on the early-access list. We'll let you know the moment the first live shows open for bidding.";
+  return `<!doctype html><html><body style="margin:0;background:#0D0D0D;font-family:Georgia,serif;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#0D0D0D;padding:40px 0;">
+    <tr><td align="center">
+      <table role="presentation" width="480" cellpadding="0" cellspacing="0" style="max-width:480px;width:100%;">
+        <tr><td style="padding:0 24px 24px;">
+          <div style="font-size:22px;letter-spacing:6px;color:#D4AF37;font-weight:bold;">REV&Eacute;LAT</div>
+        </td></tr>
+        <tr><td style="padding:0 24px;">
+          <h1 style="margin:0 0 16px;color:#ffffff;font-size:32px;line-height:1.1;">You're in.</h1>
+          <p style="margin:0 0 20px;color:#CCCCCC;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:1.6;">${lead}</p>
+          <p style="margin:0 0 28px;color:#999999;font-family:Helvetica,Arial,sans-serif;font-size:14px;line-height:1.6;">The fashion show where everything is for sale. Sellers model their pieces live; the moment an item goes on, the auction opens. You bid while it's on screen.</p>
+          <a href="https://revelat.live" style="display:inline-block;background:#D4AF37;color:#0D0D0D;text-decoration:none;font-family:Helvetica,Arial,sans-serif;font-size:14px;font-weight:bold;padding:12px 24px;border-radius:999px;">Visit revelat.live</a>
+        </td></tr>
+        <tr><td style="padding:36px 24px 0;border-top:1px solid #1A1A1A;">
+          <p style="margin:24px 0 0;color:#666666;font-family:Helvetica,Arial,sans-serif;font-size:12px;line-height:1.6;">You're receiving this because you joined the REV&Eacute;LAT waitlist. Reply to this email to reach a human.</p>
+        </td></tr>
+      </table>
+    </td></tr>
+  </table>
+</body></html>`;
+}
+
+export async function sendConfirmation(entry: WaitlistEntry): Promise<void> {
+  if (!process.env.RESEND_API_KEY) return;
+  try {
+    await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        from: FROM,
+        to: entry.email,
+        reply_to: REPLY_TO,
+        subject: "You're on the REVÉLAT list.",
+        html: confirmationHtml(entry),
+      }),
+    });
+  } catch {
+    // best-effort; signup already persisted
+  }
+}
+
 export async function saveEntry(entry: WaitlistEntry): Promise<SinkResult> {
   // 1) Resend Audiences (https://resend.com/docs/api-reference/contacts)
   if (process.env.RESEND_API_KEY && process.env.RESEND_AUDIENCE_ID) {
