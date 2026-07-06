@@ -1,0 +1,496 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RÉVÉLAT — Brand DNA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --obsidian:#0D0D0D; --black:#000; --surface:#1A1A1A; --cell:#111;
+  --border:#2A2A2A; --border2:#333; --gold:#D4AF37; --gold-hi:#F5C842;
+  --purple:#8B2FC9; --purple-deep:#1A0A2E; --white:#FFF;
+  --t2:#CCC; --t3:#999; --t4:#777; --t5:#555;
+  --red:#FF3B5C; --red-deep:#FF1744; --success:#2ECC71;
+  --didone:"Bodoni Moda", serif;
+  --grotesque:"Helvetica Neue", Helvetica, Arial, sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0; background:var(--obsidian); color:var(--white); font-family:var(--grotesque);
+  -webkit-font-smoothing:antialiased; font-size:17px; line-height:1.55}
+h1,h2,h3,h4{margin:0; font-weight:400}
+p{margin:0}
+a{color:inherit; text-decoration:none}
+
+/* ---- atoms (matched to Identity System) ---- */
+.wrap{max-width:1200px; margin:0 auto; padding:0 48px}
+@media(max-width:640px){.wrap{padding:0 24px}}
+.mono{font-family:var(--mono); letter-spacing:.18em; text-transform:uppercase; font-size:11px; color:var(--t4)}
+.gold{color:var(--gold-hi)}
+.section{padding:112px 0; border-top:1px solid var(--border)}
+@media(max-width:640px){.section{padding:76px 0}}
+.kicker{display:flex; align-items:center; gap:14px; margin-bottom:40px}
+.kicker .num{font-family:var(--mono); font-size:11px; letter-spacing:.2em; color:var(--gold)}
+.kicker .lbl{font-family:var(--mono); font-size:11px; letter-spacing:.2em; color:var(--t4); text-transform:uppercase}
+.kicker .line{flex:1; height:1px; background:var(--border)}
+.lead{font-family:var(--didone); font-size:clamp(28px,4vw,46px); line-height:1.15; letter-spacing:-.01em; max-width:20ch}
+.body-copy{color:var(--t2); font-size:16px; line-height:1.65; max-width:62ch}
+.body-copy b{color:var(--white); font-weight:600}
+.two{display:grid; grid-template-columns:1fr 1fr; gap:72px; align-items:start}
+@media(max-width:860px){.two{grid-template-columns:1fr; gap:40px}}
+
+/* ---- wordmark ---- */
+.wm{font-family:var(--didone); font-weight:600; text-transform:uppercase; letter-spacing:.06em; line-height:1; display:inline-block}
+.wm .e, .hero-wm .e, .wm-sm .e{background:linear-gradient(160deg,#FFF3C4 0%,var(--gold-hi) 42%,var(--gold) 72%,#9a7a24 100%);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  filter:drop-shadow(0 0 22px rgba(245,200,66,.42))}
+.wm-sm .e{filter:drop-shadow(0 0 10px rgba(245,200,66,.5))}
+.ap{display:inline-block; line-height:0}
+
+/* ---- nav ---- */
+.nav{position:sticky; top:0; z-index:40; background:rgba(13,13,13,.72); backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--border)}
+.nav .wrap{display:flex; align-items:center; justify-content:space-between; height:60px}
+.nav-l{display:flex; align-items:center; gap:12px}
+.nav .wm-sm{font-family:var(--didone); font-weight:600; font-size:18px; letter-spacing:.08em}
+.nav-r{display:flex; align-items:center; gap:26px}
+.nav-link{font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--t3);
+  transition:color .15s; white-space:nowrap}
+.nav-link:hover{color:var(--white)}
+.nav-link.active{color:var(--gold)}
+@media(max-width:640px){.nav-r{gap:16px} .nav-link.hide-sm{display:none}}
+
+/* ---- hero ---- */
+.hero{min-height:88vh; display:flex; flex-direction:column; justify-content:space-between; padding:44px 0 56px; position:relative; overflow:hidden}
+.hero-atmo{position:absolute; inset:0; background:radial-gradient(60% 55% at 50% 40%, rgba(139,47,201,.20), transparent 70%); pointer-events:none}
+.hero-top,.hero-center,.hero-bottom{width:100%; position:relative; z-index:2}
+.hero-top{display:flex; justify-content:space-between; align-items:center}
+.hero-center{flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center}
+.hero-eyebrow{font-family:var(--mono); font-size:12px; letter-spacing:.4em; text-transform:uppercase; color:var(--t3); margin-bottom:30px}
+.hero-wm{font-family:var(--didone); font-weight:600; text-transform:uppercase; letter-spacing:.06em; line-height:1; font-size:clamp(52px,14vw,180px)}
+.hero-tag{font-family:var(--didone); font-style:italic; font-size:clamp(17px,2.4vw,28px); color:var(--t2); margin-top:32px}
+.hero-bottom{display:flex; justify-content:space-between; align-items:flex-end; gap:24px}
+.hero-pos{font-family:var(--didone); font-size:clamp(15px,1.5vw,19px); color:var(--t3); max-width:36ch; line-height:1.4}
+
+/* ---- idea / spec rows ---- */
+.spec-row{display:grid; grid-template-columns:auto 1fr; gap:20px; padding:20px 0; border-top:1px solid var(--border); align-items:baseline}
+.spec-row:last-child{border-bottom:1px solid var(--border)}
+.spec-row .k{font-family:var(--mono); font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--gold); white-space:nowrap}
+.spec-row .v{color:var(--t2); font-size:15.5px; line-height:1.6}
+.spec-row .v b{color:#fff; font-weight:600}
+
+/* ---- dial ---- */
+.dial{display:flex; flex-direction:column; gap:16px; margin-top:8px}
+.dial-row{display:grid; grid-template-columns:120px 1fr 34px; gap:16px; align-items:center}
+.dial-row .dn{font-family:var(--mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--t3)}
+.dial-track{height:4px; background:var(--border); border-radius:99px; overflow:hidden}
+.dial-fill{height:100%; background:linear-gradient(90deg,var(--gold),var(--gold-hi)); border-radius:99px}
+.dial-row .dv{font-family:var(--mono); font-size:12px; color:var(--t2); text-align:right; font-variant-numeric:tabular-nums}
+
+/* ---- voice cols ---- */
+.voice{display:grid; grid-template-columns:1fr 1fr; gap:2px; margin-top:8px; border:1px solid var(--border)}
+@media(max-width:640px){.voice{grid-template-columns:1fr}}
+.voice-col{padding:26px 28px; background:var(--cell)}
+.voice-col h4{font-family:var(--mono); font-size:11px; letter-spacing:.16em; text-transform:uppercase; margin-bottom:18px}
+.voice-col.do h4{color:var(--success)} .voice-col.dont h4{color:var(--red)}
+.voice-col ul{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:12px}
+.voice-col li{font-size:14.5px; color:var(--t2); line-height:1.5; padding-left:18px; position:relative}
+.voice-col.do li::before{content:"+"; position:absolute; left:0; color:var(--success)}
+.voice-col.dont li::before{content:"–"; position:absolute; left:0; color:var(--red)}
+
+/* microcopy table */
+.micro{width:100%; border-collapse:collapse; margin-top:36px}
+.micro td{padding:14px 0; border-top:1px solid var(--border); vertical-align:top}
+.micro tr:last-child td{border-bottom:1px solid var(--border)}
+.micro .ctx{font-family:var(--mono); font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--t4); width:200px; padding-right:24px}
+.micro .cpy{font-family:var(--didone); font-size:19px; color:#fff}
+
+/* ---- palette ---- */
+.swatches{display:grid; grid-template-columns:repeat(6,1fr); gap:2px; margin-top:8px}
+@media(max-width:860px){.swatches{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:520px){.swatches{grid-template-columns:repeat(2,1fr)}}
+.sw{aspect-ratio:3/4; padding:16px 14px; display:flex; flex-direction:column; justify-content:flex-end;
+  position:relative; border:1px solid var(--border); cursor:pointer; transition:transform .15s}
+.sw:hover{transform:translateY(-3px)}
+.sw .sw-name{font-family:var(--grotesque); font-size:13px; font-weight:600; margin-bottom:4px}
+.sw .sw-hex{font-family:var(--mono); font-size:10px; letter-spacing:.08em}
+.sw .sw-role{font-family:var(--mono); font-size:8.5px; letter-spacing:.1em; text-transform:uppercase; position:absolute; top:13px; left:14px}
+.sw.reserved::after{content:"RESERVED"; position:absolute; top:50%; left:0; right:0; transform:translateY(-50%) rotate(-8deg);
+  text-align:center; font-family:var(--mono); font-size:10px; letter-spacing:.24em; color:#fff}
+.reserved-note{margin-top:30px; border:1px solid rgba(255,59,92,.4); background:rgba(255,59,92,.06); padding:22px 26px; display:flex; gap:20px; align-items:flex-start}
+.reserved-note .dot{width:9px;height:9px;border-radius:99px;background:var(--red);margin-top:6px;flex:0 0 auto;box-shadow:0 0 12px var(--red)}
+.reserved-note p{font-size:14px; color:var(--t2); line-height:1.6} .reserved-note b{color:#fff}
+
+/* ---- type specimens ---- */
+.spec-block{border-top:1px solid var(--border); padding:34px 0; display:grid; grid-template-columns:180px 1fr; gap:40px}
+.spec-block:last-child{border-bottom:1px solid var(--border)}
+@media(max-width:720px){.spec-block{grid-template-columns:1fr; gap:16px}}
+.spec-block .role{font-family:var(--didone); font-size:22px; margin-bottom:6px}
+.spec-block .fam{font-family:var(--mono); font-size:10px; letter-spacing:.14em; color:var(--t4); text-transform:uppercase; line-height:1.7}
+
+/* ---- logo rules / misuse ---- */
+.dont-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:8px}
+@media(max-width:860px){.dont-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.dont-grid{grid-template-columns:1fr}}
+.dont{border:1px solid var(--border); background:var(--black)}
+.dont .vis{aspect-ratio:1.5/1; display:flex; align-items:center; justify-content:center; position:relative; border-bottom:1px solid var(--border)}
+.dont .x{position:absolute; top:9px; right:11px; color:var(--red); font-size:15px}
+.dont .cap{padding:13px 15px; font-family:var(--mono); font-size:10.5px; color:var(--t3); letter-spacing:.03em; line-height:1.5}
+.mini-wm{font-family:var(--didone); font-weight:600; font-size:26px; letter-spacing:.08em; color:#fff}
+.mini-wm .e{color:var(--gold-hi)}
+
+/* ---- ui cues ---- */
+.cue-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:2px; margin-top:8px; border:1px solid var(--border)}
+@media(max-width:640px){.cue-grid{grid-template-columns:1fr}}
+.cue{padding:22px 24px; background:var(--cell)}
+.cue h4{font-family:var(--didone); font-size:19px; margin-bottom:8px}
+.cue p{font-size:13.5px; color:var(--t3); line-height:1.55}
+.cue .tk{font-family:var(--mono); font-size:11px; color:var(--gold); letter-spacing:.06em}
+
+/* ---- THE PROMPT ---- */
+.prompt-wrap{margin-top:8px; border:1px solid var(--border2); border-radius:8px; overflow:hidden; background:var(--black)}
+.prompt-bar{display:flex; align-items:center; justify-content:space-between; padding:14px 18px; border-bottom:1px solid var(--border); background:var(--cell)}
+.prompt-bar .t{font-family:var(--mono); font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--t3); display:flex; align-items:center; gap:10px}
+.prompt-bar .t .g{width:7px;height:7px;border-radius:99px;background:var(--gold);box-shadow:0 0 10px var(--gold)}
+.copy-btn{font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--obsidian);
+  background:linear-gradient(150deg,var(--gold-hi),var(--gold)); border:none; padding:9px 18px; border-radius:6px; cursor:pointer;
+  transition:filter .15s} .copy-btn:hover{filter:brightness(1.08)} .copy-btn.copied{background:var(--success)}
+.prompt-body{padding:24px 22px; font-family:var(--mono); font-size:13px; line-height:1.75; color:var(--t2);
+  white-space:pre-wrap; overflow-x:auto} .prompt-body b{color:var(--gold-hi); font-weight:500}
+
+/* ---- quick ref ---- */
+.qref{font-family:var(--mono); font-size:12.5px; line-height:1.9; color:var(--t2); background:var(--black);
+  border:1px solid var(--border); border-radius:8px; padding:26px 28px; white-space:pre-wrap; overflow-x:auto; margin-top:8px}
+.qref b{color:var(--gold-hi)} .qref .r{color:var(--red)}
+
+/* ---- footer ---- */
+.closing{padding:120px 0 90px; border-top:1px solid var(--border); text-align:center; position:relative; overflow:hidden}
+.closing-atmo{position:absolute; inset:0; background:radial-gradient(60% 60% at 50% 0%, rgba(139,47,201,.14), transparent 60%); pointer-events:none}
+.closing .stmt{font-family:var(--didone); font-size:clamp(22px,3.4vw,38px); line-height:1.3; max-width:20ch; margin:0 auto 40px; position:relative; z-index:2}
+.closing .stmt .e{color:var(--gold-hi)}
+.closing .foot{font-family:var(--mono); font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--t5); position:relative; z-index:2}
+
+.toast{position:fixed; bottom:26px; left:50%; transform:translateX(-50%) translateY(20px); background:var(--gold);
+  color:#000; font-family:var(--mono); font-size:12px; letter-spacing:.08em; padding:10px 18px; border-radius:8px;
+  opacity:0; transition:.25s; pointer-events:none; z-index:60}
+.toast.show{opacity:1; transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<nav class="nav">
+  <div class="wrap">
+    <div class="nav-l">
+      <span class="ap" data-ap="nav" style="width:22px;height:22px"></span>
+      <span class="wm-sm">REV<span class="e">É</span>LAT</span>
+    </div>
+    <div class="nav-r">
+      <a class="nav-link hide-sm" href="../RÉVÉLAT%20-%20Brand%20Identity.html">Identity System</a>
+      <a class="nav-link active" href="#top">Brand DNA</a>
+      <a class="nav-link" href="#prompt">The Prompt</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="top">
+  <div class="hero-atmo"></div>
+  <div class="wrap hero-top">
+    <div style="display:flex; align-items:center; gap:12px">
+      <span class="ap" data-ap="hero" style="width:26px;height:26px"></span>
+      <span class="mono" style="color:var(--t3)">Brand DNA</span>
+    </div>
+    <span class="mono">Vol. 02 · 2026</span>
+  </div>
+  <div class="wrap hero-center">
+    <p class="hero-eyebrow">The paste-ready brand genome</p>
+    <h1 class="hero-wm">REV<span class="e">É</span>LAT</h1>
+    <p class="hero-tag">One letter, revealed in gold.</p>
+  </div>
+  <div class="wrap hero-bottom">
+    <p class="hero-pos">Everything a designer — human or machine — needs to render REVÉLAT correctly, in one page.</p>
+    <a class="mono" href="#prompt" style="color:var(--gold)">↓ Jump to the prompt</a>
+  </div>
+</header>
+
+<!-- 01 CORE -->
+<section class="section">
+  <div class="wrap">
+    <div class="kicker"><span class="num">01</span><span class="lbl">Core</span><span class="line"></span></div>
+    <div class="two">
+      <div>
+        <h2 class="lead">A live auction house where the reveal opens the bidding.</h2>
+        <p class="body-copy" style="margin-top:26px">Sellers model clothing on camera. VisionAI matches the worn piece to their catalog in real time. Viewers bid while it's on — bidding opens when she puts it on, closes when she moves on. No auctioneer. The seller just performs. <b>eBay meets Instagram Live — a fashion show where everything is for sale.</b></p>
+      </div>
+      <div class="spec-list" style="margin-top:6px">
+        <div class="spec-row"><span class="k">Name</span><span class="v"><b>REVÉLAT</b> — French <i>révélé</i>, "revealed." Say reh-vay-LAH.</span></div>
+        <div class="spec-row"><span class="k">One-liner</span><span class="v">She puts it on. The room bids.</span></div>
+        <div class="spec-row"><span class="k">Idea</span><span class="v">Of seven letters, only the accented <b>É</b> is gold. Gold marks <b>only the item for sale</b> — never decoration.</span></div>
+        <div class="spec-row"><span class="k">Device</span><span class="v">The acute accent <b class="gold">´</b> — over the É, over the R, at the aperture's spark. No competitor owns it.</span></div>
+        <div class="spec-row"><span class="k">Audience</span><span class="v">Style-literate fashion resellers &amp; buyers, 18+, live-commerce native.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 POSITIONING -->
+<section class="section">
+  <div class="wrap">
+    <div class="kicker"><span class="num">02</span><span class="lbl">Positioning &amp; Personality</span><span class="line"></span></div>
+    <div class="two">
+      <div>
+        <h2 class="lead" style="font-size:clamp(24px,3.2vw,36px)">Sotheby's confidence. Vogue masthead. Running live.</h2>
+        <p class="body-copy" style="margin-top:24px">Archetypes: <b>the Showman</b> (spectacle) crossed with <b>the Connoisseur</b> (taste, authentication). We are composed, curated, cinematic, credible. We are <b>not</b> flash-sale spammy, meme-y, neon, or cluttered.</p>
+        <p class="body-copy" style="margin-top:20px; font-family:var(--didone); font-size:20px; color:#fff; line-height:1.4">"Every marketplace lists the thing. REVÉLAT reveals it — the gold says when."</p>
+      </div>
+      <div class="dial">
+        <div class="dial-row"><span class="dn">Luxury</span><div class="dial-track"><div class="dial-fill" style="width:90%"></div></div><span class="dv">9</span></div>
+        <div class="dial-row"><span class="dn">Timeless</span><div class="dial-track"><div class="dial-fill" style="width:90%"></div></div><span class="dv">9</span></div>
+        <div class="dial-row"><span class="dn">Technical</span><div class="dial-track"><div class="dial-fill" style="width:60%"></div></div><span class="dv">6</span></div>
+        <div class="dial-row"><span class="dn">Warm</span><div class="dial-track"><div class="dial-fill" style="width:50%"></div></div><span class="dv">5</span></div>
+        <div class="dial-row"><span class="dn">Playful</span><div class="dial-track"><div class="dial-fill" style="width:40%"></div></div><span class="dv">4</span></div>
+        <div class="dial-row"><span class="dn">Loud</span><div class="dial-track"><div class="dial-fill" style="width:30%"></div></div><span class="dv">3</span></div>
+        <div class="dial-row"><span class="dn">Trendy</span><div class="dial-track"><div class="dial-fill" style="width:30%"></div></div><span class="dv">3</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 VOICE -->
+<section class="section">
+  <div class="wrap">
+    <div class="kicker"><span class="num">03</span><span class="lbl">Voice &amp; Tone</span><span class="line"></span></div>
+    <h2 class="lead" style="margin-bottom:34px">Confident concierge. Name the moment, not the mechanism.</h2>
+    <div class="voice">
+      <div class="voice-col do">
+        <h4>Do</h4>
+        <ul>
+          <li>"Bidding opens when she puts it on."</li>
+          <li>"Revealed. Matched. Live."</li>
+          <li>Active verbs, exact numbers: "Current $340 · 12s left."</li>
+          <li>Present tense. Short sentences. Let the product perform.</li>
+        </ul>
+      </div>
+      <div class="voice-col dont">
+        <h4>Don't</h4>
+        <ul>
+          <li>No "!!!", no shouting outside labels.</li>
+          <li>No "shop now / limited time / don't miss out."</li>
+          <li>No naming the plumbing ("frame captured &amp; classified").</li>
+          <li>No apologies or hedging in errors.</li>
+        </ul>
+      </div>
+    </div>
+    <table class="micro">
+      <tr><td class="ctx">Live badge</td><td class="cpy">● LIVE · 2.4K</td></tr>
+      <tr><td class="ctx">Item revealed</td><td class="cpy">◆ Revealed · matched</td></tr>
+      <tr><td class="ctx">Bid CTA</td><td class="cpy">Bid $350</td></tr>
+      <tr><td class="ctx">Auction lot</td><td class="cpy">Lot 04 · Reserve $50</td></tr>
+      <tr><td class="ctx">Won</td><td class="cpy">Yours. Reveal complete.</td></tr>
+      <tr><td class="ctx">Outbid</td><td class="cpy">Topped — $360 now leads.</td></tr>
+      <tr><td class="ctx">Empty state</td><td class="cpy">Nothing live yet. The next show starts soon.</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- 04 COLOR -->
+<section class="section">
+  <div class="wrap">
+    <div class="kicker"><span class="num">04</span><span class="lbl">Color System</span><span class="line"></span></div>
+    <h2 class="lead" style="margin-bottom:8px">Black stage. Gold reveal. Red is off-limits.</h2>
+    <p class="body-copy" style="margin:16px 0 42px">Pulled straight from <b>lib/tokens.ts</b>. Black and gold carry the identity; purple is atmosphere only. Tap a swatch to copy its hex.</p>
+    <div class="swatches" id="swatches">
+      <div class="sw" data-hex="#0D0D0D" style="background:#0D0D0D"><span class="sw-role" style="color:var(--t4)">Ground</span><span class="sw-name">Obsidian</span><span class="sw-hex" style="color:var(--t3)">#0D0D0D</span></div>
+      <div class="sw" data-hex="#D4AF37" style="background:#D4AF37"><span class="sw-role" style="color:#4a3a10">Reveal</span><span class="sw-name" style="color:#1a1204">Revélat Gold</span><span class="sw-hex" style="color:#4a3a10">#D4AF37</span></div>
+      <div class="sw" data-hex="#F5C842" style="background:#F5C842"><span class="sw-role" style="color:#4a3a10">Ignite</span><span class="sw-name" style="color:#1a1204">Gold Highlight</span><span class="sw-hex" style="color:#4a3a10">#F5C842</span></div>
+      <div class="sw" data-hex="#8B2FC9" style="background:#8B2FC9"><span class="sw-role" style="color:#e8d5f5">Atmosphere</span><span class="sw-name">Stage Purple</span><span class="sw-hex" style="color:#e8d5f5">#8B2FC9</span></div>
+      <div class="sw" data-hex="#1A0A2E" style="background:#1A0A2E"><span class="sw-role" style="color:var(--t4)">Base</span><span class="sw-name">Deep Purple</span><span class="sw-hex" style="color:var(--t3)">#1A0A2E</span></div>
+      <div class="sw" data-hex="#FFFFFF" style="background:#FFF"><span class="sw-role" style="color:#999">Text</span><span class="sw-name" style="color:#111">White</span><span class="sw-hex" style="color:#555">#FFFFFF</span></div>
+    </div>
+    <div class="swatches" style="margin-top:2px">
+      <div class="sw" data-hex="#1A1A1A" style="background:#1A1A1A"><span class="sw-role" style="color:var(--t5)">Surface</span><span class="sw-name">Card</span><span class="sw-hex" style="color:var(--t4)">#1A1A1A</span></div>
+      <div class="sw" data-hex="#2A2A2A" style="background:#2A2A2A"><span class="sw-role" style="color:var(--t5)">Hairline</span><span class="sw-name">Border</span><span class="sw-hex" style="color:var(--t4)">#2A2A2A</span></div>
+      <div class="sw" data-hex="#999999" style="background:#999"><span class="sw-role" style="color:#333">Text 3</span><span class="sw-name" style="color:#111">Muted</span><span class="sw-hex" style="color:#333">#999999</span></div>
+      <div class="sw reserved" data-hex="#FF3B5C" style="background:#FF3B5C"><span class="sw-role" style="color:#fff">LIVE / BID</span><span class="sw-name">Signal Red</span><span class="sw-hex" style="color:#ffd9e1">#FF3B5C</span></div>
+      <div class="sw reserved" data-hex="#FF1744" style="background:#FF1744"><span class="sw-role" style="color:#fff">Live pulse</span><span class="sw-name">Live Red</span><span class="sw-hex" style="color:#ffd9e1">#FF1744</span></div>
+      <div class="sw" data-hex="#2ECC71" style="background:#2ECC71"><span class="sw-role" style="color:#0b3d21">Confirmed</span><span class="sw-name" style="color:#08301a">Success</span><span class="sw-hex" style="color:#0b3d21">#2ECC71</span></div>
+    </div>
+    <div class="reserved-note">
+      <div class="dot"></div>
+      <p><b>The reserved-red rule.</b> Gold is identity; red is action. Red (#FF3B5C / #FF1744) appears only on LIVE and BID — the live pulse, the bid button. It must <b>never</b> touch the wordmark, the monogram, or the aperture. This restraint keeps the reveal sacred and the call-to-action unmistakable.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 05 TYPE -->
+<section class="section">
+  <div class="wrap">
+    <div class="kicker"><span class="num">05</span><span class="lbl">Typography</span><span class="line"></span></div>
+    <h2 class="lead" style="margin-bottom:20px">A masthead, a voice, a spec sheet.</h2>
+    <div class="spec-block">
+      <div><div class="role">Display</div><div class="fam">Bodoni Moda<br>Didone Serif<br>UPPER · +6% track</div></div>
+      <div><div class="wm" style="font-size:clamp(34px,6vw,60px)">REV<span class="e">É</span>LAT</div><div style="font-family:var(--didone); font-size:15px; color:var(--t4); margin-top:14px">Wordmark · headlines · prices · lot numbers. High thick/thin contrast.</div></div>
+    </div>
+    <div class="spec-block">
+      <div><div class="role">Body</div><div class="fam">Helvetica Neue<br>Neo-Grotesque<br>400 / 600</div></div>
+      <div><div style="font-size:20px; color:var(--t2); line-height:1.5">Bidding opens when she puts it on and closes when she moves on. The seller performs; the room decides. <b style="color:#fff">Aa Bb Cc 0123456789</b></div></div>
+    </div>
+    <div class="spec-block">
+      <div><div class="role">Utility</div><div class="fam">JetBrains Mono<br>Monospace<br>tabular-nums</div></div>
+      <div><div style="font-family:var(--mono); font-size:15px; color:var(--gold); letter-spacing:.06em">LOT 04 · RESERVE $50 · CURRENT $340 · 00:12 LEFT</div><div style="font-family:var(--mono); font-size:12px; color:var(--t4); margin-top:12px; letter-spacing:.06em">Timers, bids, lot data, eyebrow labels.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 LOGO RULES -->
+<section class="section">
+  <div class="wrap">
+    <div class="kicker"><span class="num">06</span><span class="lbl">Protecting the Mark</span><span class="line"></span></div>
+    <h2 class="lead" style="margin-bottom:34px">The gold accent is the whole idea. Four ways it breaks.</h2>
+    <div class="dont-grid">
+      <div class="dont"><div class="vis"><span class="x">✕</span><span class="mini-wm" style="color:var(--red)">REV<span style="color:var(--red)">É</span>LAT</span></div><div class="cap">Never recolor the mark red — red is LIVE only.</div></div>
+      <div class="dont"><div class="vis"><span class="x">✕</span><span class="mini-wm">REVÉLAT</span></div><div class="cap">Never drop the gold É. The accent must glow.</div></div>
+      <div class="dont"><div class="vis"><span class="x">✕</span><span class="mini-wm" style="font-family:var(--grotesque); font-weight:700">REV<span class="e">É</span>LAT</span></div><div class="cap">Never set the wordmark in a sans. Didone only.</div></div>
+      <div class="dont"><div class="vis"><span class="x">✕</span><span class="mini-wm" style="letter-spacing:-2px">REV<span class="e">É</span>LAT</span></div><div class="cap">Never crush the tracking. Keep it wide and lit.</div></div>
+    </div>
+    <p class="body-copy" style="margin-top:34px"><b>Symbols:</b> the wordmark can't live in an app icon. Two marks carry it — <b class="gold">The Aperture</b> (six-blade iris + gold spark = lens, spotlight, gem facet; recommended, app icon &amp; favicon) and <b>The Accent R</b> (serif R under the gold accent; merch, seals, watermarks). Clearspace = the height of the E on all sides. Aperture holds to 16px; drop blade seams below 24px.</p>
+  </div>
+</section>
+
+<!-- 07 MOTION + UI -->
+<section class="section">
+  <div class="wrap">
+    <div class="kicker"><span class="num">07</span><span class="lbl">Motion &amp; UI Cues</span><span class="line"></span></div>
+    <div class="cue-grid">
+      <div class="cue"><h4>The Ignite</h4><p>Signature move. On reveal, the item (or the É) fades from dark, scales 0.9→1, flares gold once, then settles to a steady glow. ~1.1s, ease <span class="tk">cubic-bezier(.2,.7,.2,1)</span>. Honor reduced-motion.</p></div>
+      <div class="cue"><h4>Live pulse</h4><p>The only red motion. Live dot pulses <span class="tk">#FF1744</span> every 2s. Bids: counters roll in mono tabular; new high flashes a gold border once.</p></div>
+      <div class="cue"><h4>Surfaces</h4><p>Ground <span class="tk">#0D0D0D</span> with purple radial atmosphere. Card <span class="tk">#1A1A1A</span>, radius 14, hairline <span class="tk">#2A2A2A</span>. Radii: chip 4 / button 12 / card 14 / hero 20 / pill 999.</p></div>
+      <div class="cue"><h4>Gold discipline</h4><p>Gold in UI is reserved for the <b style="color:var(--gold)">revealed item</b> and brand marks — never generic buttons. Bid CTA is red gradient <span class="tk">#FF3B5C→#FF1744</span>, gold-free.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 08 THE PROMPT -->
+<section class="section" id="prompt">
+  <div class="wrap">
+    <div class="kicker"><span class="num">08</span><span class="lbl">The Prompt</span><span class="line"></span></div>
+    <h2 class="lead" style="margin-bottom:8px">Drop this into Claude — or any design tool.</h2>
+    <p class="body-copy" style="margin:16px 0 34px">The entire genome, compressed into one paste-ready brief. Prepend it to any design request and the output lands on-brand the first time.</p>
+    <div class="prompt-wrap">
+      <div class="prompt-bar">
+        <span class="t"><span class="g"></span>Master Brief · paste block</span>
+        <button class="copy-btn" id="copyPrompt">Copy prompt</button>
+      </div>
+      <div class="prompt-body" id="promptText">Design for <b>REVÉLAT</b> — a live fashion auction app (eBay meets Instagram Live). Sellers model clothing on camera; VisionAI matches the worn item to their catalog in real time; viewers bid while it's on. Tone: luxury auction house × fashion magazine, built for live. Aesthetic: black stage, gold reveal, purple atmosphere.
+
+Core visual idea: "révélat" = revealed — only the accented É in the wordmark is gold; gold marks ONLY the thing for sale, never decoration. The acute accent (´) is the ownable device.
+
+Deliver a system, not one logo: (1) wordmark REVÉLAT in a high-contrast Didone serif, uppercase, wide tracking (+6%), the É gold (#D4AF37→#F5C842) with a soft spotlight glow; (2) app-icon symbol "The Aperture" — a six-blade camera iris opening onto a gold spark, reading as lens + spotlight + gem facet.
+
+Palette: obsidian #0D0D0D, gold #D4AF37 / #F5C842, purple #8B2FC9 / #1A0A2E, white #FFFFFF. Red #FF3B5C is RESERVED for LIVE/BID and must never touch the logo. Body type: neo-grotesque (Helvetica Neue / Inter). Data type: monospace.
+
+Style: Sotheby's × Vogue, cinematic dark, restrained, timeless — avoid neon, clutter, trends. Present it like a $500,000 brand project: mockups (iPhone app icon, black card with gold-foil É, authentication hang tag, billboard, live bidding overlay) plus a one-paragraph rationale per element and the positioning line "Every marketplace lists the thing. REVÉLAT reveals it — the gold says when."</div>
+    </div>
+
+    <h3 style="font-family:var(--mono); font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--t4); margin:44px 0 14px">Quick reference card</h3>
+    <div class="qref">IDEA     révélat = revealed. Only gold <b>É</b> lit. Gold = the item for sale.
+DEVICE   acute accent ´ (over É, over R, aperture spark)
+TAGLINE  She puts it on. The room bids.
+GROUND   <b>#0D0D0D</b> obsidian / #000 plates
+GOLD     <b>#D4AF37 → #F5C842</b>   (identity — the reveal, item-only)
+PURPLE   #8B2FC9 / #1A0A2E   (atmosphere only)
+WHITE    #FFFFFF             (wordmark, text)
+RED      <span class="r">#FF3B5C / #FF1744</span>   (RESERVED — LIVE/BID, never logo)
+TYPE     Bodoni Moda display · Helvetica body · JetBrains mono data
+MOTION   "ignite" flare on reveal · red live-pulse · else restraint
+DON'T    red on logo · sans wordmark · dropped É · decorative gold</div>
+  </div>
+</section>
+
+<!-- CLOSE -->
+<footer class="closing">
+  <div class="closing-atmo"></div>
+  <p class="stmt">Every marketplace lists the thing. REV<span class="e">É</span>LAT reveals it — the gold says when.</p>
+  <p class="foot">REVÉLAT · Brand DNA · Vol. 02 · Black · Gold · Purple · Red reserved for LIVE</p>
+</footer>
+
+<div class="toast" id="toast">Copied</div>
+
+<!-- aperture generator (shared with Identity System) -->
+<script>
+function pt(cx,cy,r,deg){const a=(deg-90)*Math.PI/180;return [cx+r*Math.cos(a),cy+r*Math.sin(a)];}
+function outerHit(x0,y0,dx,dy,cx,cy,R){
+  const fx=x0-cx,fy=y0-cy,a=dx*dx+dy*dy,b=2*(fx*dx+fy*dy),c=fx*fx+fy*fy-R*R;
+  const t=(-b+Math.sqrt(b*b-4*a*c))/(2*a);return [x0+t*dx,y0+t*dy];
+}
+function aperture(id,{Ra=17,Ro=46,phase=8}={}){
+  const V=[];for(let k=0;k<6;k++)V.push(pt(50,50,Ra,60*k+phase));
+  const P=[];for(let k=0;k<6;k++){const a=V[k],b=V[(k+1)%6];P.push(outerHit(a[0],a[1],b[0]-a[0],b[1]-a[1],50,50,Ro));}
+  let blades='';
+  for(let k=0;k<6;k++){
+    const a=V[k],p=P[k],pn=P[(k+1)%6],vn=V[(k+1)%6];
+    const fill=k%2?`url(#${id}-fa)`:`url(#${id}-fb)`;
+    blades+=`<path d="M${a[0].toFixed(2)} ${a[1].toFixed(2)} L${p[0].toFixed(2)} ${p[1].toFixed(2)} A${Ro} ${Ro} 0 0 1 ${pn[0].toFixed(2)} ${pn[1].toFixed(2)} L${vn[0].toFixed(2)} ${vn[1].toFixed(2)} Z" fill="${fill}"/>`;
+  }
+  let seams='';
+  for(let k=0;k<6;k++){seams+=`<line x1="${V[k][0].toFixed(2)}" y1="${V[k][1].toFixed(2)}" x2="${P[k][0].toFixed(2)}" y2="${P[k][1].toFixed(2)}" stroke="url(#${id}-seam)" stroke-width="0.7" stroke-linecap="round"/>`;}
+  const hex='M'+V.map(v=>v[0].toFixed(2)+' '+v[1].toFixed(2)).join(' L')+' Z';
+  return `<svg viewBox="0 0 100 100" width="100%" height="100%" style="display:block" aria-hidden="true">
+    <defs>
+      <linearGradient id="${id}-fa" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#242424"/><stop offset="1" stop-color="#0e0e0e"/></linearGradient>
+      <linearGradient id="${id}-fb" x1="1" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1a1a1a"/><stop offset="1" stop-color="#050505"/></linearGradient>
+      <linearGradient id="${id}-seam" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#C8A94A" stop-opacity="0.55"/><stop offset="1" stop-color="#C8A94A" stop-opacity="0.12"/></linearGradient>
+      <radialGradient id="${id}-g" cx="50%" cy="42%" r="62%"><stop offset="0" stop-color="#FFF3C4"/><stop offset="40%" stop-color="#F5C842"/><stop offset="100%" stop-color="#D4AF37"/></radialGradient>
+      <radialGradient id="${id}-glow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#F5C842" stop-opacity="0.8"/><stop offset="100%" stop-color="#F5C842" stop-opacity="0"/></radialGradient>
+    </defs>
+    <circle cx="50" cy="50" r="${Ro}" fill="#0b0b0b"/>
+    ${blades}${seams}
+    <circle cx="50" cy="50" r="${Ro}" fill="none" stroke="#3a301a" stroke-width="0.6"/>
+    <circle cx="50" cy="50" r="${Ra+7}" fill="url(#${id}-glow)"/>
+    <path d="${hex}" fill="url(#${id}-g)"/>
+    <path d="${hex}" fill="none" stroke="#7a5f1a" stroke-width="0.5" opacity="0.5"/>
+  </svg>`;
+}
+document.querySelectorAll('[data-ap]').forEach(el=>{ el.innerHTML=aperture('ap-'+el.dataset.ap); });
+
+// toast helper
+const toast=document.getElementById('toast');
+function ping(msg){ toast.textContent=msg; toast.classList.add('show'); clearTimeout(window._t); window._t=setTimeout(()=>toast.classList.remove('show'),1500); }
+
+// clipboard with execCommand fallback (works on file:// and non-secure contexts too)
+function copyText(txt){
+  if(navigator.clipboard && window.isSecureContext){
+    return navigator.clipboard.writeText(txt).catch(()=>legacyCopy(txt));
+  }
+  return Promise.resolve(legacyCopy(txt));
+}
+function legacyCopy(txt){
+  const ta=document.createElement('textarea');
+  ta.value=txt; ta.style.cssText='position:fixed;top:0;left:0;opacity:0';
+  document.body.appendChild(ta); ta.focus(); ta.select();
+  try{ document.execCommand('copy'); }catch(e){}
+  document.body.removeChild(ta);
+}
+
+// copy swatch hex
+document.getElementById('swatches').closest('.wrap').addEventListener('click',e=>{
+  const sw=e.target.closest('.sw'); if(!sw)return;
+  copyText(sw.dataset.hex).then(()=>ping(sw.dataset.hex+' copied'));
+});
+
+// copy the prompt
+document.getElementById('copyPrompt').addEventListener('click',function(){
+  const txt=document.getElementById('promptText').innerText;
+  copyText(txt).then(()=>{
+    this.textContent='Copied ✓'; this.classList.add('copied'); ping('Master brief copied');
+    setTimeout(()=>{ this.textContent='Copy prompt'; this.classList.remove('copied'); },1800);
+  });
+});
+</script>
+</body>
+</html>
